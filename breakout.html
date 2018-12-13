@@ -16,6 +16,7 @@ var numOfTiles;
 var score;
 var tileList;
 var intervalVar;
+var hittCount;
 ctx.fillText("Click me to start the game",150,250);
 
 
@@ -150,14 +151,49 @@ updateBallPosition = function ()  {
     ball.y +=ball.spdY;
 
     if(ball.x>WIDTH || ball.x<0){
+        hittCount++;
+        if(hittCount%10==0){
+            if(ball.spdX<0)
+                ball.spdX= (Math.abs(ball.spdX)+1);
+                else 
+                ball.spdX+=1;
+                
+            
+
+        }
         ball.spdX = -ball.spdX
     }
     if (ball.y<0){
+     
+        hittCount++;
+
+        if(hittCount%10==0){
+            if(ball.spdY<0)
+                ball.spdY= (Math.abs(ball.spdY)+1);
+                else 
+                ball.spdY+=1;
+                
+            
+
+        }
         ball.spdY = -ball.spdY
     }
     if (ball.y>HEIGHT){
+
+        hittCount++;
+
+if(hittCount%10==0){
+    if(ball.spdY<0)
+        ball.spdY= (Math.abs(ball.spdY)+1);
+        else 
+        ball.spdY+=1;
+        
+    
+
+}
         ball.spdY = -ball.spdY
         base.lives--;
+      
     }
 }
 
@@ -193,6 +229,7 @@ testCollisionTile = function (t,ball ){   // argument t= tilelist and ball argum
 isGameOver = function (){
     if(base.lives<0 || score==330){
         clearInterval(intervalVar);
+        hittCount=0;
         ctx.fillText("Game over! Click to restart", 150,200)
         
     }
@@ -236,6 +273,7 @@ startGame = function (){   // START THE GAME FUNCTION
     tileList=[];
     score=0;
     base.lives= 3;
+    hittCount=0;
 
     for (var i=1;i<=6;i++) {
           tileX = 5;
